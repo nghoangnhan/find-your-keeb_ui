@@ -153,9 +153,9 @@ class ApiService {
     return response.data;
   }
 
-  async getAllOrders(): Promise<Order[]> {
+  async getAllOrders(): Promise<any[]> {
     const response = await this.api.get('/admin/orders');
-    return response.data.content;
+    return response.data;
   }
 
   async getAdminOrderById(id: number): Promise<Order> {

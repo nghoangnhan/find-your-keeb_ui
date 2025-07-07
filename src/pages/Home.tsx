@@ -81,7 +81,7 @@ const Home: React.FC = () => {
         }}
       >
         <Container maxWidth="lg">
-          <Grid container spacing={4} alignItems="center">
+          <Grid container spacing={5} alignItems="center">
             <Grid item xs={12} md={6}>
               <Typography variant="h2" component="h1" gutterBottom>
                 {isAdmin ? (
@@ -98,12 +98,11 @@ const Home: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    Find Your Perfect
-                    <br />
+                    Find Your Perfect<br />
                     <Typography
                       variant="h2"
                       component="span"
-                      sx={{ fontWeight: 700, color: '#ffd700' }}
+                      sx={{ fontWeight: 300, color: '#ffd700' }}
                     >
                       Mechanical Keyboard
                     </Typography>
@@ -185,7 +184,15 @@ const Home: React.FC = () => {
                 {isAdmin ? (
                   <AdminPanelSettings sx={{ fontSize: 200, opacity: 0.3 }} />
                 ) : (
-                  <Keyboard sx={{ fontSize: 200, opacity: 0.3 }} />
+                  <img
+                    src="/cat-typing.png"
+                    alt="Find Your Keeb Logo"
+                    style={{
+                      height: 400,
+                      width: 'auto',
+                      borderRadius: '16px',
+                    }}
+                  />
                 )}
               </Box>
             </Grid>
@@ -228,119 +235,29 @@ const Home: React.FC = () => {
                 >
                   <CardMedia
                     component="img"
-                    height="200"
-                    image={product.imageUrl || 'https://via.placeholder.com/300x200?text=Keyboard'}
+                    src={product.imageUrl}
                     alt={product.name}
-                    sx={{ objectFit: 'cover' }}
+                    sx={{ height: 200, objectFit: 'cover' }}
                   />
-                  <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                    <Typography variant="h6" component="h3" gutterBottom>
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography variant="h5" component="h2" gutterBottom>
                       {product.name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" paragraph>
-                      {product.description.substring(0, 100)}...
+                    <Typography variant="body2" color="text.secondary">
+                      {product.description}
                     </Typography>
-                    
-                    <Box sx={{ mb: 2 }}>
-                      <Chip
-                        label={product.brand}
-                        size="small"
-                        sx={{ mr: 1, mb: 1 }}
-                      />
-                      <Chip
-                        label={product.layout.replace('_', ' ')}
-                        size="small"
-                        variant="outlined"
-                        sx={{ mr: 1, mb: 1 }}
-                      />
-                      {product.rgbSupport && (
-                        <Chip
-                          label="RGB"
-                          size="small"
-                          color="secondary"
-                          sx={{ mb: 1 }}
-                        />
-                      )}
-                    </Box>
-
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
-                        {formatPrice(product.price)}
-                      </Typography>
-                      {!isAdmin && (
-                        <Box sx={{ display: 'flex', alignItems: 'center', ml: 1 }}>
-                          <Star sx={{ fontSize: 16, color: '#ffd700' }} />
-                          <Typography variant="body2" sx={{ ml: 0.5 }}>
-                            4.5
-                          </Typography>
-                        </Box>
-                      )}
-                    </Box>
-
-                    {/* Show stock status for all users */}
-                    <Box sx={{ mb: 2 }}>
-                      <Chip
-                        label={product.stockQuantity > 0 ? `In Stock (${product.stockQuantity})` : 'Out of Stock'}
-                        color={product.stockQuantity > 0 ? 'success' : 'error'}
-                        size="small"
-                      />
-                    </Box>
-
-                    {isAdmin ? (
-                      <Box sx={{ mt: 'auto' }}>
-                        <Chip
-                          label={`Stock: ${product.stockQuantity}`}
-                          color={product.stockQuantity > 0 ? 'success' : 'error'}
-                          size="small"
-                          sx={{ mb: 1 }}
-                        />
-                        <Button
-                          variant="outlined"
-                          size="small"
-                          fullWidth
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(`/admin/products`);
-                          }}
-                          sx={{ mt: 1 }}
-                        >
-                          Manage Product
-                        </Button>
-                      </Box>
-                    ) : (
-                      <Button
-                        variant="contained"
-                        startIcon={<ShoppingCart />}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleAddToCart(product.id);
-                        }}
-                        disabled={product.stockQuantity === 0}
-                        sx={{ mt: 'auto' }}
-                      >
-                        {product.stockQuantity === 0 ? 'Out of Stock' : 'Add to Cart'}
-                      </Button>
-                    )}
+                    <Typography variant="h6" sx={{ mt: 2 }}>
+                      {formatPrice(product.price)}
+                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
             ))}
           </Grid>
         )}
-
-        <Box sx={{ textAlign: 'center', mt: 6 }}>
-          <Button
-            variant="outlined"
-            size="large"
-            onClick={() => navigate(isAdmin ? '/admin/products' : '/products')}
-            sx={{ px: 4, py: 1.5 }}
-          >
-            {isAdmin ? 'Manage All Products' : 'View All Products'}
-          </Button>
-        </Box>
       </Container>
     </Box>
   );
 };
 
-export default Home; 
+export default Home;

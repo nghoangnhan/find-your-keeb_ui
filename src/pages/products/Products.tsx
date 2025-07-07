@@ -237,8 +237,10 @@ const Products: React.FC = () => {
                   value={[draftFilters.minPrice || 0, draftFilters.maxPrice || 500]}
                   onChange={(_, newValue: number | number[]) => {
                     if (Array.isArray(newValue)) {
-                      handleDraftFilterChange('minPrice', newValue[0]);
-                      handleDraftFilterChange('maxPrice', newValue[1]);
+                      let [min, max] = newValue;
+                      if (min > max) min = max;
+                      handleDraftFilterChange('minPrice', min);
+                      handleDraftFilterChange('maxPrice', max);
                     }
                   }}
                   valueLabelDisplay="auto"
@@ -252,7 +254,13 @@ const Products: React.FC = () => {
                     label="Min"
                     type="number"
                     value={draftFilters.minPrice || ''}
-                    onChange={(e) => handleDraftFilterChange('minPrice', Number(e.target.value) || undefined)}
+                    onChange={(e) => {
+                      let min = Number(e.target.value) || 0;
+                      let max = draftFilters.maxPrice || 500;
+                      if (min > max) max = min;
+                      handleDraftFilterChange('minPrice', min);
+                      handleDraftFilterChange('maxPrice', max);
+                    }}
                     sx={{ width: '50%' }}
                   />
                   <TextField
@@ -260,7 +268,13 @@ const Products: React.FC = () => {
                     label="Max"
                     type="number"
                     value={draftFilters.maxPrice || ''}
-                    onChange={(e) => handleDraftFilterChange('maxPrice', Number(e.target.value) || undefined)}
+                    onChange={(e) => {
+                      let max = Number(e.target.value) || 0;
+                      let min = draftFilters.minPrice || 0;
+                      if (max < min) min = max;
+                      handleDraftFilterChange('maxPrice', max);
+                      handleDraftFilterChange('minPrice', min);
+                    }}
                     sx={{ width: '50%' }}
                   />
                 </Box>
@@ -297,7 +311,7 @@ const Products: React.FC = () => {
                   fullWidth
                   sx={{ flex: 1 }}
                 >
-                  Apply Filters
+                  Apply
                 </Button>
                 <Button
                   variant="outlined"
@@ -395,27 +409,10 @@ const Products: React.FC = () => {
                     </Box>
 
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      {!isAdmin && (
-                        <>
-                          <Rating value={4.5} readOnly size="small" />
-                          <Typography variant="body2" sx={{ ml: 1 }}>
-                            (4.5)
-                          </Typography>
-                        </>
-                      )}
-                      {isAdmin && (
-                        <Chip
-                          label={`Stock: ${product.stockQuantity}`}
-                          color={product.stockQuantity > 0 ? 'success' : 'error'}
-                          size="small"
-                        />
-                      )}
-                      {/* Show stock status for all users */}
                       <Chip
                         label={product.stockQuantity > 0 ? `In Stock (${product.stockQuantity})` : 'Out of Stock'}
                         color={product.stockQuantity > 0 ? 'success' : 'error'}
                         size="small"
-                        sx={{ ml: isAdmin ? 1 : 0 }}
                       />
                     </Box>
 

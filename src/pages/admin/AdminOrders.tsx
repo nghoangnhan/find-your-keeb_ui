@@ -31,16 +31,47 @@ import {
   LocalShipping,
 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { Order, OrderStatus, OrderItem } from '../../types';
 import { apiService } from '../../services/api';
 
+// Add local types for admin order DTO
+
+type AdminOrder = {
+  id: number;
+  orderNumber: string;
+  username: string;
+  firstName?: string;
+  lastName?: string;
+  items: AdminOrderItem[];
+  totalAmount: number;
+  status: string;
+  shippingAddress: string;
+  billingAddress: string;
+  paymentMethod: string;
+  createdAt: string;
+};
+
+type AdminOrderItem = {
+  id: number;
+  productName: string;
+  quantity: number;
+  unitPrice: number;
+};
+
+const ORDER_STATUSES = [
+  'PENDING',
+  'CONFIRMED',
+  'SHIPPED',
+  'DELIVERED',
+  'CANCELLED'
+];
+
 const AdminOrders: React.FC = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<AdminOrder[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [statusDialogOpen, setStatusDialogOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-  const [newStatus, setNewStatus] = useState<OrderStatus>(OrderStatus.PENDING);
+  const [selectedOrder, setSelectedOrder] = useState<AdminOrder | null>(null);
+  const [newStatus, setNewStatus] = useState<string>(ORDER_STATUSES[0]);
 
   useEffect(() => {
     fetchOrders();
@@ -60,7 +91,7 @@ const AdminOrders: React.FC = () => {
     }
   };
 
-  const handleStatusUpdate = (order: Order) => {
+  const handleStatusUpdate = (order: AdminOrder) => {
     setSelectedOrder(order);
     setNewStatus(order.status);
     setStatusDialogOpen(true);
@@ -97,17 +128,17 @@ const AdminOrders: React.FC = () => {
     });
   };
 
-  const getStatusColor = (status: OrderStatus) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
-      case OrderStatus.PENDING:
+      case 'PENDING':
         return 'warning';
-      case OrderStatus.CONFIRMED:
+      case 'CONFIRMED':
         return 'info';
-      case OrderStatus.SHIPPED:
+      case 'SHIPPED':
         return 'primary';
-      case OrderStatus.DELIVERED:
+      case 'DELIVERED':
         return 'success';
-      case OrderStatus.CANCELLED:
+      case 'CANCELLED':
         return 'error';
       default:
         return 'default';
@@ -161,14 +192,16 @@ const AdminOrders: React.FC = () => {
                   <Typography variant="subtitle2">#{order.id}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2">User ID: {order.userId}</Typography>
+                  <Typography variant="body2">
+                    {order.firstName || order.lastName ? `${order.firstName || ''} ${order.lastName || ''}`.trim() : order.username}
+                  </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="body2">
                     {(order.items || []).length} items
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
-                    {order.items?.map((item: OrderItem) => item.product.name).join(', ')}
+                    {order.items?.map((item: any) => item.productName).join(', ')}
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -223,10 +256,10 @@ const AdminOrders: React.FC = () => {
               <InputLabel>New Status</InputLabel>
               <Select
                 value={newStatus}
-                onChange={(e) => setNewStatus(e.target.value as OrderStatus)}
+                onChange={(e) => setNewStatus(e.target.value)}
                 label="New Status"
               >
-                {Object.values(OrderStatus).map((status) => (
+                {ORDER_STATUSES.map((status) => (
                   <MenuItem key={status} value={status}>
                     {(status as string).replace('_', ' ')}
                   </MenuItem>

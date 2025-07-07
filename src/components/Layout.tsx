@@ -118,14 +118,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     </IconButton>
                   )}
 
-                  <Button
-                    color="inherit"
-                    component={RouterLink}
-                    to="/orders"
-                    sx={{ textTransform: 'none' }}
-                  >
-                    Orders
-                  </Button>
+                  {/* Only show Orders link if not admin */}
+                  {user?.role !== 'ADMIN' && (
+                    <Button
+                      color="inherit"
+                      component={RouterLink}
+                      to="/orders"
+                      sx={{ textTransform: 'none' }}
+                    >
+                      Orders
+                    </Button>
+                  )}
 
                   {user?.role === 'ADMIN' && (
                     <Button

@@ -12,8 +12,10 @@ import {
   CircularProgress,
   Alert,
   Divider,
+  Dialog,
+  IconButton
 } from '@mui/material';
-import { ShoppingCart, ArrowBack } from '@mui/icons-material';
+import { ShoppingCart, ArrowBack, Close as CloseIcon } from '@mui/icons-material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Product } from '../../types';
 import { apiService } from '../../services/api';
@@ -26,6 +28,8 @@ const ProductDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState<string | null>(null);
 
   const navigate = useNavigate();
   const { addToCart } = useCart();
@@ -106,14 +110,23 @@ const ProductDetail: React.FC = () => {
       <Grid container spacing={4}>
         {/* Product Image */}
         <Grid item xs={12} md={6}>
-          <Card>
+          <Card sx={{ p: 0, m: 0, boxShadow: 3, borderRadius: 3 }}>
             <img
               src={product.imageUrl || 'https://via.placeholder.com/600x400?text=Keyboard'}
               alt={product.name}
               style={{
                 width: '100%',
-                height: 'auto',
+                height: '100%',
                 objectFit: 'cover',
+                cursor: 'pointer',
+                display: 'block',
+                margin: 0,
+                padding: 0,
+                borderRadius: 'inherit',
+              }}
+              onClick={() => {
+                setModalImage(product.imageUrl || 'https://via.placeholder.com/600x400?text=Keyboard');
+                setIsModalOpen(true);
               }}
             />
           </Card>
@@ -126,10 +139,12 @@ const ProductDetail: React.FC = () => {
           </Typography>
 
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-            <Rating value={4.5} readOnly />
-            <Typography variant="body2" sx={{ ml: 1 }}>
-              (4.5) - 128 reviews
-            </Typography>
+            <Chip
+              label={product.stockQuantity > 0 ? `In Stock (${product.stockQuantity} available)` : 'Out of Stock'}
+              color={product.stockQuantity > 0 ? 'success' : 'error'}
+              size="medium"
+              sx={{ fontSize: '1rem', py: 1 }}
+            />
           </Box>
 
           <Typography variant="h3" color="primary" fontWeight="bold" gutterBottom>
@@ -138,12 +153,6 @@ const ProductDetail: React.FC = () => {
 
           {/* Stock Status */}
           <Box sx={{ mb: 3 }}>
-            <Chip
-              label={product.stockQuantity > 0 ? `In Stock (${product.stockQuantity} available)` : 'Out of Stock'}
-              color={product.stockQuantity > 0 ? 'success' : 'error'}
-              size="medium"
-              sx={{ mb: 1, fontSize: '1rem', py: 1 }}
-            />
             {product.stockQuantity === 0 && (
               <Alert severity="error" sx={{ mt: 1 }}>
                 This product is currently out of stock. Please check back later or contact us for availability updates.
@@ -254,6 +263,43 @@ const ProductDetail: React.FC = () => {
           </Box>
         </Grid>
       </Grid>
+
+      {/* Image Modal */}
+      <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} maxWidth="md">
+        <Box sx={{ position: 'relative' }}>
+          <IconButton
+            aria-label="close"
+            onClick={() => setIsModalOpen(false)}
+            sx={{
+              position: 'absolute',
+              right: 12,
+              top: 12,
+              backgroundColor: 'rgba(255,255,255,0.7)',
+              zIndex: 1,
+              '&:hover': {
+                backgroundColor: 'rgba(255,255,255,0.9)',
+              },
+              p: 1,
+              width: 'auto',
+              height: 'auto',
+            }}
+          >
+            <CloseIcon sx={{ fontSize: '1.5rem', color: '#333' }} />
+          </IconButton>
+          <img
+            src={modalImage || ''}
+            alt="Product"
+            style={{
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover',
+              display: 'block',
+              maxWidth: '800px',
+              maxHeight: '80vh',
+            }}
+          />
+        </Box>
+      </Dialog>
     </Container>
   );
 };
