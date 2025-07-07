@@ -23,7 +23,7 @@ import { CheckoutRequest } from '../../types';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Checkout: React.FC = () => {
-  const { cart } = useCart();
+  const { cart, refreshCart } = useCart();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -65,6 +65,7 @@ const Checkout: React.FC = () => {
       };
 
       await apiService.checkout(checkoutData);
+      await refreshCart();
       navigate('/orders');
     } catch (err: any) {
       setError(err.response?.data?.message || 'Checkout failed. Please try again.');

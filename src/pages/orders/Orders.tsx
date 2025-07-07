@@ -71,6 +71,9 @@ const Orders: React.FC = () => {
     }
   };
 
+  // Sort orders by createdAt descending (latest first)
+  const sortedOrders = [...orders].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
   if (loading) {
     return (
       <Container maxWidth="lg">
@@ -106,7 +109,7 @@ const Orders: React.FC = () => {
         </Card>
       ) : (
         <Grid container spacing={3}>
-          {orders.map((order) => (
+          {sortedOrders.map((order) => (
             <Grid item xs={12} key={order.id}>
               <Card>
                 <CardContent>
