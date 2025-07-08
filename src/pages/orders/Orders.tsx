@@ -117,45 +117,82 @@ const Orders: React.FC = () => {
                     <Typography variant="h6">
                       Order #{order.id}
                     </Typography>
-                    <Chip
-                      label={order.status.replace('_', ' ')}
-                      color={getStatusColor(order.status) as any}
-                      size="small"
-                    />
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 1 }}>
+                      <Chip
+                        label={order.status.replace('_', ' ')}
+                        color={getStatusColor(order.status) as any}
+                        size="small"
+                      />
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        startIcon={<Visibility />}
+                        component={Link}
+                        to={`/orders/${order.id}`}
+                        sx={{ mt: 1 }}
+                      >
+                        View Details
+                      </Button>
+                    </Box>
                   </Box>
 
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                     Placed on {formatDate(order.createdAt)}
                   </Typography>
 
-                  <Box sx={{ mb: 2 }}>
+                  <Box 
+                    sx={{
+                      mb: 2,
+                      maxHeight: (order.items && order.items.length > 3) ? 180 : 'none',
+                      overflowY: (order.items && order.items.length > 3) ? 'auto' : 'visible',
+                      pr: 1,
+                      border: '1px solid',
+                      borderColor: 'divider',
+                      borderRadius: 2,
+                      background: 'rgba(30,30,30,0.7)',
+                      // Custom scrollbar for dark theme
+                      '&::-webkit-scrollbar': {
+                        width: 8,
+                        background: '#181818',
+                        borderRadius: 8,
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        background: '#444',
+                        borderRadius: 8,
+                      },
+                      '&::-webkit-scrollbar-thumb:hover': {
+                        background: '#666',
+                      },
+                      scrollbarColor: '#444 #181818',
+                      scrollbarWidth: 'thin',
+                    }}
+                  >
                     {(order.items || []).map((item) => (
-                      <Box key={item.id} sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                        <Typography variant="body2">
+                      <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+                        <Box sx={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 1, background: '#222', mr: 1 }}>
+                          <img
+                            src={item.product.imageUrl || 'https://via.placeholder.com/80x80?text=Keyboard'}
+                            alt={item.product.name}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 4 }}
+                          />
+                        </Box>
+                        <Typography variant="body2" sx={{ flex: 1, minWidth: 0, mr: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {item.product.name} x {item.quantity}
                         </Typography>
-                        <Typography variant="body2">
-                          {formatPrice(item.unitPrice * item.quantity)}
-                        </Typography>
+                        <Box sx={{ textAlign: 'right' }}>
+                          <Typography variant="body2">
+                            {formatPrice(item.unitPrice * item.quantity)}
+                          </Typography>
+                          {/* Total under price for the last item */}
+                          {order.items[order.items.length - 1].id === item.id && (
+                            <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
+                              Total: {formatPrice(order.totalAmount)}
+                            </Typography>
+                          )}
+                        </Box>
                       </Box>
                     ))}
                   </Box>
-
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Typography variant="h6" color="primary">
-                      Total: {formatPrice(order.totalAmount)}
-                    </Typography>
-                  </Box>
-
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    startIcon={<Visibility />}
-                    component={Link}
-                    to={`/orders/${order.id}`}
-                  >
-                    View Details
-                  </Button>
                 </CardContent>
               </Card>
             </Grid>

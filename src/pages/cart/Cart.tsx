@@ -94,6 +94,28 @@ const Cart: React.FC = () => {
 
               <Divider sx={{ mb: 2 }} />
 
+              <Box
+                sx={{
+                  maxHeight: cart.items.length > 3 ? 320 : 'none',
+                  overflowY: cart.items.length > 3 ? 'auto' : 'visible',
+                  pr: 1,
+                  // Custom scrollbar for dark theme
+                  '&::-webkit-scrollbar': {
+                    width: 8,
+                    background: '#181818',
+                    borderRadius: 8,
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    background: '#444',
+                    borderRadius: 8,
+                  },
+                  '&::-webkit-scrollbar-thumb:hover': {
+                    background: '#666',
+                  },
+                  scrollbarColor: '#444 #181818',
+                  scrollbarWidth: 'thin',
+                }}
+              >
               {cart.items.map((item) => (
                 <Box key={item.id} sx={{ mb: 3 }}>
                   <Grid container spacing={2} alignItems="center">
@@ -183,6 +205,7 @@ const Cart: React.FC = () => {
                   <Divider sx={{ mt: 2 }} />
                 </Box>
               ))}
+              </Box>
             </CardContent>
           </Card>
         </Grid>

@@ -189,43 +189,73 @@ const OrderDetail: React.FC = () => {
               <Typography variant="h6" gutterBottom>
                 Order Items ({(order.items || []).length})
               </Typography>
-              
-              {(order.items || []).map((item) => (
-                <Paper key={item.id} sx={{ p: 2, mb: 2 }}>
-                  <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={3}>
-                      <img
-                        src={item.product.imageUrl || 'https://via.placeholder.com/80x80?text=Keyboard'}
-                        alt={item.product.name}
-                        style={{
-                          width: '100%',
-                          height: 'auto',
-                          borderRadius: 8,
-                        }}
-                      />
+              <Box
+                sx={{
+                  maxHeight: 320,
+                  overflowY: 'auto',
+                  pr: 1,
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  borderRadius: 2,
+                  background: 'rgba(30,30,30,0.7)',
+                  mb: 2,
+                  // Custom scrollbar for dark theme
+                  '&::-webkit-scrollbar': {
+                    width: 8,
+                    background: '#181818',
+                    borderRadius: 8,
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    background: '#444',
+                    borderRadius: 8,
+                  },
+                  '&::-webkit-scrollbar-thumb:hover': {
+                    background: '#666',
+                  },
+                  scrollbarColor: '#444 #181818',
+                  scrollbarWidth: 'thin',
+                }}
+              >
+                {(order.items || []).map((item) => (
+                  <Paper key={item.id} sx={{ p: 2, mb: 2, boxShadow: 'none', background: 'transparent' }}>
+                    <Grid container spacing={2} alignItems="center">
+                      <Grid item xs={3}>
+                        <Box sx={{ width: 64, height: 64, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 1, background: '#222' }}>
+                          <img
+                            src={item.product.imageUrl || 'https://via.placeholder.com/80x80?text=Keyboard'}
+                            alt={item.product.name}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              borderRadius: 8,
+                            }}
+                          />
+                        </Box>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant="h6" gutterBottom>
+                          {item.product.name}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" gutterBottom>
+                          {item.product.brand} • {item.product.layout.replace('_', ' ')}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Quantity: {item.quantity}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={3}>
+                        <Typography variant="h6" color="primary" align="right">
+                          {formatPrice(item.unitPrice * item.quantity)}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" align="right">
+                          {formatPrice(item.unitPrice)} each
+                        </Typography>
+                      </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant="h6" gutterBottom>
-                        {item.product.name}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" gutterBottom>
-                        {item.product.brand} • {item.product.layout.replace('_', ' ')}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Quantity: {item.quantity}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={3}>
-                      <Typography variant="h6" color="primary" align="right">
-                        {formatPrice(item.unitPrice * item.quantity)}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" align="right">
-                        {formatPrice(item.unitPrice)} each
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              ))}
+                  </Paper>
+                ))}
+              </Box>
             </CardContent>
           </Card>
         </Grid>
