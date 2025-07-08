@@ -31,7 +31,7 @@ const Checkout: React.FC = () => {
   const [formData, setFormData] = useState({
     shippingAddress: '',
     billingAddress: '',
-    paymentMethod: 'credit_card',
+    paymentMethod: 'cod', // default to COD
   });
 
   const handleTextFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -140,7 +140,7 @@ const Checkout: React.FC = () => {
                     label="Payment Method"
                     onChange={handleSelectChange}
                   >
-                    <MenuItem value="credit_card">Credit Card</MenuItem>
+                    <MenuItem value="cod">Cash on Delivery (COD)</MenuItem>
                     <MenuItem value="paypal">PayPal</MenuItem>
                     <MenuItem value="bank_transfer">Bank Transfer</MenuItem>
                   </Select>
