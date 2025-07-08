@@ -169,14 +169,21 @@ const Orders: React.FC = () => {
                   >
                     {(order.items || []).map((item) => (
                       <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
-                        <Box sx={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 1, background: '#222', mr: 1 }}>
+                        <Box
+                          sx={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 1, background: '#222', mr: 1, cursor: 'pointer' }}
+                          onClick={() => window.location.href = `/products/${item.product.id}`}
+                        >
                           <img
                             src={item.product.imageUrl || 'https://via.placeholder.com/80x80?text=Keyboard'}
                             alt={item.product.name}
                             style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 4 }}
                           />
                         </Box>
-                        <Typography variant="body2" sx={{ flex: 1, minWidth: 0, mr: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <Typography
+                          variant="body2"
+                          sx={{ flex: 1, minWidth: 0, mr: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: 'pointer' }}
+                          onClick={() => window.location.href = `/products/${item.product.id}`}
+                        >
                           {item.product.name} x {item.quantity}
                         </Typography>
                         <Box sx={{ textAlign: 'right' }}>
