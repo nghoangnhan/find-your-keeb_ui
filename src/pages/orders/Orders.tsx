@@ -183,15 +183,14 @@ const Orders: React.FC = () => {
                           <Typography variant="body2">
                             {formatPrice(item.unitPrice * item.quantity)}
                           </Typography>
-                          {/* Total under price for the last item */}
-                          {order.items[order.items.length - 1].id === item.id && (
-                            <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
-                              Total: {formatPrice(order.totalAmount)}
-                            </Typography>
-                          )}
                         </Box>
                       </Box>
                     ))}
+                  </Box>
+                  <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 1 }}>
+                    <Typography variant="h6" color="primary" sx={{ fontWeight: 700 }}>
+                      Total: {formatPrice(order.totalAmount)}
+                    </Typography>
                   </Box>
                 </CardContent>
               </Card>
