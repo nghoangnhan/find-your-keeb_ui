@@ -16,15 +16,20 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: 'dark',
     primary: {
-      main: '#1976d2',
+      main: '#ffd700', // gold/yellow accent from logo
     },
     secondary: {
-      main: '#dc004e',
+      main: '#764ba2', // purple accent from hero section
     },
     background: {
-      default: '#f5f5f5',
+      default: '#181818', // deep black background
+      paper: '#232323', // slightly lighter for cards
+    },
+    text: {
+      primary: '#fff',
+      secondary: '#b0b0b0',
     },
   },
   typography: {
@@ -52,7 +57,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+          backgroundColor: '#232323',
         },
       },
     },

@@ -34,7 +34,7 @@ const AdminDashboard: React.FC = () => {
       <Grid container spacing={3}>
         {/* Products Management */}
         <Grid item xs={12} md={6}>
-          <Card sx={{ height: '100%' }}>
+          <Card sx={{ height: '100%', backgroundColor: 'background.paper', boxShadow: 3 }}>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                 <Inventory sx={{ fontSize: 40, color: 'primary.main', mr: 2 }} />
@@ -80,10 +80,10 @@ const AdminDashboard: React.FC = () => {
 
         {/* Orders Management */}
         <Grid item xs={12} md={6}>
-          <Card sx={{ height: '100%' }}>
+          <Card sx={{ height: '100%', backgroundColor: 'background.paper', boxShadow: 3 }}>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <ShoppingCart sx={{ fontSize: 40, color: 'secondary.main', mr: 2 }} />
+                <ShoppingCart sx={{ fontSize: 40, color: 'primary.main', mr: 2 }} />
                 <Box>
                   <Typography variant="h5" component="h2">
                     Orders
@@ -103,7 +103,7 @@ const AdminDashboard: React.FC = () => {
             <CardActions sx={{ p: 2, pt: 0 }}>
               <Button
                 variant="contained"
-                color="secondary"
+                color="primary"
                 startIcon={<Visibility />}
                 component={Link}
                 to="/admin/orders"

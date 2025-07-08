@@ -98,18 +98,28 @@ const Cart: React.FC = () => {
                 <Box key={item.id} sx={{ mb: 3 }}>
                   <Grid container spacing={2} alignItems="center">
                     <Grid item xs={3}>
-                      <img
-                        src={item.product.imageUrl || 'https://via.placeholder.com/100x100?text=Keyboard'}
-                        alt={item.product.name}
-                        style={{
-                          width: '100%',
-                          height: 'auto',
-                          borderRadius: 8,
-                        }}
-                      />
+                      <Box
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => navigate(`/products/${item.product.id}`)}
+                      >
+                        <img
+                          src={item.product.imageUrl || 'https://via.placeholder.com/100x100?text=Keyboard'}
+                          alt={item.product.name}
+                          style={{
+                            width: '100%',
+                            height: 'auto',
+                            borderRadius: 8,
+                          }}
+                        />
+                      </Box>
                     </Grid>
                     <Grid item xs={4}>
-                      <Typography variant="h6" gutterBottom>
+                      <Typography
+                        variant="h6"
+                        gutterBottom
+                        sx={{ cursor: 'pointer', display: 'inline-block' }}
+                        onClick={() => navigate(`/products/${item.product.id}`)}
+                      >
                         {item.product.name}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">

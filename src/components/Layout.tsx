@@ -214,9 +214,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         <Divider />
                       </>
                     )}
-                    <MenuItem onClick={handleProfile}>
-                      <Typography variant="body2">Profile</Typography>
-                    </MenuItem>
                     <MenuItem onClick={handleLogout}>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <Logout sx={{ fontSize: 20 }} />
