@@ -17,6 +17,8 @@ import { Add, Remove, Delete, ShoppingCart } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
 
+const BACKEND_URL = "http://localhost:8080";
+
 const Cart: React.FC = () => {
   const { cart, updateQuantity, removeFromCart, clearCart, loading } = useCart();
   const navigate = useNavigate();
@@ -125,7 +127,7 @@ const Cart: React.FC = () => {
                         onClick={() => navigate(`/products/${item.product.id}`)}
                       >
                         <img
-                          src={item.product.imageUrl || 'https://via.placeholder.com/100x100?text=Keyboard'}
+                          src={item.product.imageUrl ? (item.product.imageUrl.startsWith('/product-images/') ? BACKEND_URL + item.product.imageUrl : item.product.imageUrl) : 'https://via.placeholder.com/100x100?text=Keyboard'}
                           alt={item.product.name}
                           style={{
                             width: '100%',

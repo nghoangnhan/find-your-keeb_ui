@@ -22,6 +22,8 @@ import { apiService } from '../../services/api';
 import { useCart } from '../../contexts/CartContext';
 import { useAuth } from '../../contexts/AuthContext';
 
+const BACKEND_URL = "http://localhost:8080";
+
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
@@ -112,7 +114,7 @@ const ProductDetail: React.FC = () => {
         <Grid item xs={12} md={6}>
           <Card sx={{ p: 0, m: 0, boxShadow: 3, borderRadius: 3 }}>
             <img
-              src={product.imageUrl || 'https://via.placeholder.com/600x400?text=Keyboard'}
+              src={product.imageUrl ? (product.imageUrl.startsWith('/product-images/') ? BACKEND_URL + product.imageUrl : product.imageUrl) : 'https://via.placeholder.com/600x400?text=Keyboard'}
               alt={product.name}
               style={{
                 width: '100%',
@@ -125,7 +127,7 @@ const ProductDetail: React.FC = () => {
                 borderRadius: 'inherit',
               }}
               onClick={() => {
-                setModalImage(product.imageUrl || 'https://via.placeholder.com/600x400?text=Keyboard');
+                setModalImage(product.imageUrl ? (product.imageUrl.startsWith('/product-images/') ? BACKEND_URL + product.imageUrl : product.imageUrl) : 'https://via.placeholder.com/600x400?text=Keyboard');
                 setIsModalOpen(true);
               }}
             />
@@ -287,7 +289,7 @@ const ProductDetail: React.FC = () => {
             <CloseIcon sx={{ fontSize: '1.5rem', color: '#333' }} />
           </IconButton>
           <img
-            src={modalImage || ''}
+            src={typeof modalImage === 'string' ? modalImage : ''}
             alt="Product"
             style={{
               width: '100%',

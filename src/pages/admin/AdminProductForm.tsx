@@ -22,6 +22,10 @@ import { ArrowBack, Save } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { Product, KeyboardLayout } from '../../types';
 import { apiService } from '../../services/api';
+import { v4 as uuidv4 } from 'uuid';
+
+const BACKEND_URL = "http://localhost:8080";
+const MAX_IMAGE_SIZE_MB = 10;
 
 const AdminProductForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -45,6 +49,8 @@ const AdminProductForm: React.FC = () => {
     imageUrl: '',
   });
 
+  const [uploadedImageFile, setUploadedImageFile] = useState<File | null>(null);
+
   useEffect(() => {
     fetchKeyboardLayouts();
   }, []);
@@ -63,6 +69,37 @@ const AdminProductForm: React.FC = () => {
       ...prev,
       [field]: value
     }));
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > MAX_IMAGE_SIZE_MB * 1024 * 1024) {
+      setError(`Image size must be less than ${MAX_IMAGE_SIZE_MB}MB`);
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const response = await fetch(`${BACKEND_URL}/api/products/upload-image`, {
+        method: 'POST',
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error('Image upload failed');
+      }
+      const imagePath = await response.text();
+      setFormData(prev => ({
+        ...prev,
+        imageUrl: imagePath
+      }));
+    } catch (err) {
+      setError('Failed to upload image');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -95,6 +132,24 @@ const AdminProductForm: React.FC = () => {
       };
 
       await apiService.createProduct(productData);
+      // Save image to public/product-images if uploaded
+      if (uploadedImageFile && formData.imageUrl.startsWith('/product-images/')) {
+        const ext = uploadedImageFile.name.split('.').pop();
+        const filename = formData.imageUrl.replace('/product-images/', '');
+        const destPath = `/product-images/${filename}`;
+        // Save file using FileReader and download link (simulate save to public)
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const a = document.createElement('a');
+          a.href = e.target?.result as string;
+          a.download = filename;
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        };
+        reader.readAsDataURL(uploadedImageFile);
+      }
       setSuccess('Product created successfully');
       setTimeout(() => {
         navigate('/admin/products');
@@ -301,17 +356,22 @@ const AdminProductForm: React.FC = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Image URL"
-                  value={formData.imageUrl}
-                  onChange={(e) => handleInputChange('imageUrl', e.target.value)}
-                  placeholder="https://example.com/image.jpg"
-                  helperText="Enter a URL for the product image"
-                />
+                <Button
+                  variant="outlined"
+                  component="label"
+                  sx={{ mr: 2 }}
+                  disabled={loading}
+                >
+                  Upload Image
+                  <input
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    onChange={handleImageUpload}
+                  />
+                </Button>
               </Grid>
 
-              {/* Preview */}
               {formData.imageUrl && (
                 <Grid item xs={12}>
                   <Box sx={{ mt: 2 }}>
@@ -319,7 +379,7 @@ const AdminProductForm: React.FC = () => {
                       Image Preview:
                     </Typography>
                     <img
-                      src={formData.imageUrl}
+                      src={formData.imageUrl.startsWith('/product-images/') ? BACKEND_URL + formData.imageUrl : formData.imageUrl}
                       alt="Product preview"
                       style={{
                         maxWidth: '200px',
@@ -342,7 +402,7 @@ const AdminProductForm: React.FC = () => {
                     type="submit"
                     variant="contained"
                     startIcon={loading ? <CircularProgress size={20} /> : <Save />}
-                    disabled={loading}
+                    disabled={loading || !formData.imageUrl}
                     size="large"
                   >
                     {loading ? 'Creating...' : 'Create Product'}

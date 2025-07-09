@@ -37,6 +37,8 @@ import { Link } from 'react-router-dom';
 import { Product, KeyboardLayout } from '../../types';
 import { apiService } from '../../services/api';
 
+const BACKEND_URL = "http://localhost:8080";
+
 const AdminProducts: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -193,7 +195,7 @@ const AdminProducts: React.FC = () => {
               <TableRow key={product.id}>
                 <TableCell>
                   <img
-                    src={product.imageUrl || 'https://via.placeholder.com/50x50?text=KB'}
+                    src={product.imageUrl ? (product.imageUrl.startsWith('/product-images/') ? BACKEND_URL + product.imageUrl : product.imageUrl) : 'https://via.placeholder.com/50x50?text=KB'}
                     alt={product.name}
                     style={{ width: 50, height: 50, borderRadius: 4 }}
                   />
