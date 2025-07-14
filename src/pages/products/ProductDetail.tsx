@@ -111,7 +111,7 @@ const ProductDetail: React.FC = () => {
 
       <Grid container spacing={4}>
         {/* Product Image */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card sx={{ p: 0, m: 0, boxShadow: 3, borderRadius: 3 }}>
             <img
               src={product.imageUrl ? (product.imageUrl.startsWith('/product-images/') ? BACKEND_URL + product.imageUrl : product.imageUrl) : 'https://via.placeholder.com/600x400?text=Keyboard'}
@@ -135,7 +135,7 @@ const ProductDetail: React.FC = () => {
         </Grid>
 
         {/* Product Info */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant="h4" component="h1" gutterBottom>
             {product.name}
           </Typography>
@@ -191,25 +191,25 @@ const ProductDetail: React.FC = () => {
               Specifications
             </Typography>
             <Grid container spacing={2}>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6 }}>
                 <Typography variant="body2" color="text.secondary">
                   Switch Type
                 </Typography>
                 <Typography variant="body1">{product.switchType}</Typography>
               </Grid>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6 }}>
                 <Typography variant="body2" color="text.secondary">
                   Keycap Material
                 </Typography>
                 <Typography variant="body1">{product.keycapMaterial}</Typography>
               </Grid>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6 }}>
                 <Typography variant="body2" color="text.secondary">
                   Case Material
                 </Typography>
                 <Typography variant="body1">{product.caseMaterial}</Typography>
               </Grid>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6 }}>
                 <Typography variant="body2" color="text.secondary">
                   Stock Quantity
                 </Typography>

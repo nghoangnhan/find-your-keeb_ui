@@ -199,6 +199,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                       </Box>
                     </MenuItem>
                     <Divider />
+                    <MenuItem 
+                      onClick={() => { handleMenuClose(); navigate('/profile'); }}
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <AccountCircle sx={{ fontSize: 20 }} />
+                        <Typography variant="body2">Profile</Typography>
+                      </Box>
+                    </MenuItem>
+                    <Divider />
                     {user?.role === 'ADMIN' && (
                       <>
                         <MenuItem 

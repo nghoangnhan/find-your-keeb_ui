@@ -230,12 +230,6 @@ const AdminOrders: React.FC = () => {
                     >
                       <Visibility />
                     </IconButton>
-                    <IconButton
-                      size="small"
-                      onClick={() => handleStatusUpdate(order)}
-                    >
-                      <Edit />
-                    </IconButton>
                   </Box>
                 </TableCell>
               </TableRow>

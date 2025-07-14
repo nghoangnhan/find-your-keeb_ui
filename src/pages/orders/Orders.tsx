@@ -110,7 +110,7 @@ const Orders: React.FC = () => {
       ) : (
         <Grid container spacing={3}>
           {sortedOrders.map((order) => (
-            <Grid item xs={12} key={order.id}>
+            <Grid size={{ xs: 12 }} key={order.id}>
               <Card>
                 <CardContent>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>

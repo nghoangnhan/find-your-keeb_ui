@@ -82,7 +82,7 @@ const Home: React.FC = () => {
       >
         <Container maxWidth="lg">
           <Grid container spacing={5} alignItems="center">
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="h2" component="h1" gutterBottom>
                 {isAdmin ? (
                   <>
@@ -172,7 +172,7 @@ const Home: React.FC = () => {
                 </Button>
               )}
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Box
                 sx={{
                   display: 'flex',
@@ -219,7 +219,7 @@ const Home: React.FC = () => {
         ) : (
           <Grid container spacing={3}>
             {(featuredProducts || []).map((product) => (
-              <Grid item xs={12} sm={6} md={4} key={product.id}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={product.id}>
                 <Card
                   sx={{
                     height: '100%',

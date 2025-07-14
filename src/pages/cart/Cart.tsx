@@ -77,7 +77,7 @@ const Cart: React.FC = () => {
 
       <Grid container spacing={3}>
         {/* Cart Items */}
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Card>
             <CardContent>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
@@ -121,7 +121,7 @@ const Cart: React.FC = () => {
               {cart.items.map((item) => (
                 <Box key={item.id} sx={{ mb: 3 }}>
                   <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={3}>
+                    <Grid size={{ xs: 3 }}>
                       <Box
                         sx={{ cursor: 'pointer' }}
                         onClick={() => navigate(`/products/${item.product.id}`)}
@@ -137,7 +137,7 @@ const Cart: React.FC = () => {
                         />
                       </Box>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid size={{ xs: 4 }}>
                       <Typography
                         variant="h6"
                         gutterBottom
@@ -169,12 +169,12 @@ const Cart: React.FC = () => {
                         </Alert>
                       )}
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid size={{ xs: 2 }}>
                       <Typography variant="h6" color="primary">
                         {formatPrice(item.product.price)}
                       </Typography>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid size={{ xs: 2 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <IconButton
                           size="small"
@@ -195,7 +195,7 @@ const Cart: React.FC = () => {
                         </IconButton>
                       </Box>
                     </Grid>
-                    <Grid item xs={1}>
+                    <Grid size={{ xs: 1 }}>
                       <IconButton
                         color="error"
                         onClick={() => removeFromCart(item.product.id)}
@@ -213,7 +213,7 @@ const Cart: React.FC = () => {
         </Grid>
 
         {/* Order Summary */}
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>

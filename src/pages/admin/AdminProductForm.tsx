@@ -196,14 +196,14 @@ const AdminProductForm: React.FC = () => {
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               {/* Basic Information */}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Typography variant="h6" gutterBottom>
                   Basic Information
                 </Typography>
                 <Divider sx={{ mb: 2 }} />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
                   label="Product Name *"
@@ -213,7 +213,7 @@ const AdminProductForm: React.FC = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
                   label="Brand *"
@@ -223,7 +223,7 @@ const AdminProductForm: React.FC = () => {
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <TextField
                   fullWidth
                   label="Description *"
@@ -235,7 +235,7 @@ const AdminProductForm: React.FC = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
                   label="Price *"
@@ -247,7 +247,7 @@ const AdminProductForm: React.FC = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
                   label="Stock Quantity *"
@@ -260,14 +260,14 @@ const AdminProductForm: React.FC = () => {
               </Grid>
 
               {/* Technical Specifications */}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
                   Technical Specifications
                 </Typography>
                 <Divider sx={{ mb: 2 }} />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <FormControl fullWidth>
                   <InputLabel>Keyboard Layout *</InputLabel>
                   <Select
@@ -285,7 +285,7 @@ const AdminProductForm: React.FC = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
                   label="Switch Type"
@@ -295,7 +295,7 @@ const AdminProductForm: React.FC = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
                   label="Keycap Material"
@@ -305,7 +305,7 @@ const AdminProductForm: React.FC = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
                   label="Case Material"
@@ -316,14 +316,14 @@ const AdminProductForm: React.FC = () => {
               </Grid>
 
               {/* Features */}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
                   Features
                 </Typography>
                 <Divider sx={{ mb: 2 }} />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <FormControlLabel
                   control={
                     <Switch
@@ -335,7 +335,7 @@ const AdminProductForm: React.FC = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <FormControlLabel
                   control={
                     <Switch
@@ -348,14 +348,14 @@ const AdminProductForm: React.FC = () => {
               </Grid>
 
               {/* Image URL */}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
                   Product Image
                 </Typography>
                 <Divider sx={{ mb: 2 }} />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Button
                   variant="outlined"
                   component="label"
@@ -373,7 +373,7 @@ const AdminProductForm: React.FC = () => {
               </Grid>
 
               {formData.imageUrl && (
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <Box sx={{ mt: 2 }}>
                     <Typography variant="subtitle2" gutterBottom>
                       Image Preview:
@@ -396,7 +396,7 @@ const AdminProductForm: React.FC = () => {
               )}
 
               {/* Submit Button */}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
                   <Button
                     type="submit"

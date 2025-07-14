@@ -181,6 +181,17 @@ class ApiService {
     const response = await this.api.put(`/admin/orders/${id}/status?status=${status}`);
     return response.data;
   }
+
+  // Profile endpoints
+  async getProfile(): Promise<{ id: number; username: string; email: string; displayName: string; gender?: string; dateOfBirth?: string; address?: string; phoneNumber?: string }> {
+    const response = await this.api.get('/profile');
+    return response.data;
+  }
+
+  async updateProfile({ displayName, gender, dateOfBirth, address, phoneNumber }: { displayName: string; gender?: string; dateOfBirth?: string; address?: string; phoneNumber?: string }): Promise<{ id: number; username: string; email: string; displayName: string; gender?: string; dateOfBirth?: string; address?: string; phoneNumber?: string }> {
+    const response = await this.api.put('/profile', { displayName, gender, dateOfBirth, address, phoneNumber });
+    return response.data;
+  }
 }
 
 export const apiService = new ApiService(); 

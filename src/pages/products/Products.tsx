@@ -188,7 +188,7 @@ const Products: React.FC = () => {
 
       <Grid container spacing={3}>
         {/* Filters Sidebar */}
-        <Grid item xs={12} md={3}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Card>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
@@ -356,10 +356,10 @@ const Products: React.FC = () => {
         </Grid>
 
         {/* Products Grid */}
-        <Grid item xs={12} md={9}>
+        <Grid size={{ xs: 12, md: 9 }}>
           <Grid container spacing={3}>
             {(products || []).map((product) => (
-              <Grid item xs={12} sm={6} lg={4} key={product.id}>
+              <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={product.id}>
                 <Card
                   sx={{
                     height: '100%',

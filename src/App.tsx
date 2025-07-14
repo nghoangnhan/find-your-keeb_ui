@@ -13,6 +13,7 @@ import { Cart, Checkout } from './pages/cart';
 import { Orders, OrderDetail } from './pages/orders';
 import { AdminDashboard, AdminProducts, AdminProductForm, AdminOrders } from './pages/admin';
 import ProtectedRoute from './components/ProtectedRoute';
+import Profile from './pages/Profile';
 
 const theme = createTheme({
   palette: {
@@ -108,6 +109,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <OrderDetail />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/profile" 
+                  element={
+                    <ProtectedRoute>
+                      <Profile />
                     </ProtectedRoute>
                   } 
                 />
