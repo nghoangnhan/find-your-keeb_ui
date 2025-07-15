@@ -36,8 +36,7 @@ import {
 import { Link } from 'react-router-dom';
 import { Product, KeyboardLayout } from '../../types';
 import { apiService } from '../../services/api';
-
-const BACKEND_URL = "http://localhost:8080";
+import { BACKEND_URL } from '../../services/constants';
 
 const AdminProducts: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);

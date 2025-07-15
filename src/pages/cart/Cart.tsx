@@ -16,8 +16,7 @@ import {
 import { Add, Remove, Delete, ShoppingCart } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
-
-const BACKEND_URL = "http://localhost:8080";
+import { BACKEND_URL } from '../../services/constants';
 
 const Cart: React.FC = () => {
   const { cart, updateQuantity, removeFromCart, clearCart, loading } = useCart();

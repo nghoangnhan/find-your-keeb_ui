@@ -235,7 +235,7 @@ const Home: React.FC = () => {
                 >
                   <CardMedia
                     component="img"
-                    src={product.imageUrl}
+                    src={product.imageUrl ? (product.imageUrl.startsWith('/product-images/') ? require('../services/constants').BACKEND_URL + product.imageUrl : product.imageUrl) : 'https://via.placeholder.com/300x200?text=Keyboard'}
                     alt={product.name}
                     sx={{ height: 200, objectFit: 'cover' }}
                   />

@@ -23,8 +23,8 @@ import { useNavigate } from 'react-router-dom';
 import { Product, KeyboardLayout } from '../../types';
 import { apiService } from '../../services/api';
 import { v4 as uuidv4 } from 'uuid';
+import { BACKEND_URL } from '../../services/constants';
 
-const BACKEND_URL = "http://localhost:8080";
 const MAX_IMAGE_SIZE_MB = 10;
 
 const AdminProductForm: React.FC = () => {

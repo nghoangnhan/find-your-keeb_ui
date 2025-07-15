@@ -21,8 +21,7 @@ import { Product } from '../../types';
 import { apiService } from '../../services/api';
 import { useCart } from '../../contexts/CartContext';
 import { useAuth } from '../../contexts/AuthContext';
-
-const BACKEND_URL = "http://localhost:8080";
+import { BACKEND_URL } from '../../services/constants';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();

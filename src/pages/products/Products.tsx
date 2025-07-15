@@ -28,8 +28,7 @@ import { Product, ProductFilterRequest, KeyboardLayout } from '../../types';
 import { apiService } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCart } from '../../contexts/CartContext';
-
-const BACKEND_URL = "http://localhost:8080";
+import { BACKEND_URL, API_BASE_URL } from '../../services/constants';
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -63,7 +62,7 @@ const Products: React.FC = () => {
       try {
         setLoading(true);
         console.log('Fetching products with filters:', activeFilters);
-        console.log('API base URL:', 'http://localhost:8080/api');
+        console.log('API base URL:', API_BASE_URL);
         
         const [productsResponse, brandsData, layoutsData] = await Promise.all([
           apiService.getProducts(activeFilters),
