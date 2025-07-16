@@ -8,12 +8,10 @@ import {
   CardContent,
   CardMedia,
   Container,
-  Chip,
-  Rating,
   CircularProgress,
   Alert,
 } from '@mui/material';
-import { Keyboard, ShoppingCart, Star, AdminPanelSettings, ShoppingCart as OrdersIcon } from '@mui/icons-material';
+import { AdminPanelSettings, ShoppingCart as OrdersIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../types';
 import { apiService } from '../services/api';

@@ -20,9 +20,8 @@ import {
 } from '@mui/material';
 import { ArrowBack, Save } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { Product, KeyboardLayout } from '../../types';
+import { KeyboardLayout } from '../../types';
 import { apiService } from '../../services/api';
-import { v4 as uuidv4 } from 'uuid';
 import { BACKEND_URL } from '../../services/constants';
 
 const MAX_IMAGE_SIZE_MB = 10;

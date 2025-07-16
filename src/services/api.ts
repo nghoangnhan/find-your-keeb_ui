@@ -7,7 +7,6 @@ import {
   CartItemRequest,
   AuthRequest,
   RegisterRequest,
-  User,
   Order,
   CheckoutRequest,
   KeyboardLayout

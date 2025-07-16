@@ -8,7 +8,6 @@ import {
   Typography,
   Button,
   Chip,
-  Rating,
   Container,
   FormControl,
   InputLabel,
