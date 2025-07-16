@@ -190,7 +190,7 @@ const AdminOrders: React.FC = () => {
                 </TableCell>
                 <TableCell>
                   <Typography variant="body2">
-                    {order.firstName || order.lastName ? `${order.firstName || ''} ${order.lastName || ''}`.trim() : order.username}
+                    {order.username ? order.username : (order.firstName || order.lastName ? `${order.firstName || ''} ${order.lastName || ''}`.trim() : '')}
                   </Typography>
                 </TableCell>
                 <TableCell>

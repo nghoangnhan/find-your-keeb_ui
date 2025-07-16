@@ -25,6 +25,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Order, OrderStatus } from '../../types';
 import { apiService } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
+import { BACKEND_URL } from '../../services/constants';
 
 const OrderDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -260,8 +261,8 @@ const OrderDetail: React.FC = () => {
                       <Grid size={{ xs: 3 }}>
                         <Box sx={{ width: 64, height: 64, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 1, background: '#222' }}>
                           <img
-                            src={item.product.imageUrl || 'https://via.placeholder.com/80x80?text=Keyboard'}
-                            alt={item.product.name}
+                            src={item.imageUrl ? (item.imageUrl.startsWith('/product-images/') ? BACKEND_URL + item.imageUrl : item.imageUrl) : 'https://via.placeholder.com/80x80?text=Keyboard'}
+                            alt={item.productName}
                             style={{
                               width: '100%',
                               height: '100%',
@@ -273,10 +274,10 @@ const OrderDetail: React.FC = () => {
                       </Grid>
                       <Grid size={{ xs: 6 }}>
                         <Typography variant="h6" gutterBottom>
-                          {item.product.name}
+                          {item.productName}
                         </Typography>
                         <Typography variant="body2" color="text.secondary" gutterBottom>
-                          {item.product.brand} • {item.product.layout.replace('_', ' ')}
+                          {item.brand} • {(item.layout ? item.layout.replace('_', ' ') : '')}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                           Quantity: {item.quantity}
@@ -331,12 +332,27 @@ const OrderDetail: React.FC = () => {
                 <Typography variant="subtitle2" gutterBottom>
                   Order Information
                 </Typography>
+                {(order.firstName || order.lastName) && (
+                  <Typography variant="body2" color="text.secondary">
+                    Name: {[order.firstName, order.lastName].filter(Boolean).join(' ')}
+                  </Typography>
+                )}
+                {order.username && !order.firstName && !order.lastName && (
+                  <Typography variant="body2" color="text.secondary">
+                    Username: {order.username}
+                  </Typography>
+                )}
                 <Typography variant="body2" color="text.secondary">
                   Order Date: {formatDate(order.createdAt)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Order Number: #{order.id}
                 </Typography>
+                {order.phoneNumber && (
+                  <Typography variant="body2" color="text.secondary">
+                    Phone Number: {order.phoneNumber}
+                  </Typography>
+                )}
               </Box>
 
               {/* Shipping Information */}

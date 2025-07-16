@@ -261,7 +261,7 @@ const Products: React.FC = () => {
                       handleDraftFilterChange('minPrice', min);
                       handleDraftFilterChange('maxPrice', max);
                     }}
-                    sx={{ width: '50%' }}
+                    sx={{ width: '50%', background: '#232323', color: '#fff', input: { color: '#fff' }, '& .MuiOutlinedInput-root': { '& fieldset': { borderColor: '#444' }, '&:hover fieldset': { borderColor: '#ffd700' }, '&.Mui-focused fieldset': { borderColor: '#ffd700' } } }}
                   />
                   <TextField
                     size="small"
@@ -275,7 +275,7 @@ const Products: React.FC = () => {
                       handleDraftFilterChange('maxPrice', max);
                       handleDraftFilterChange('minPrice', min);
                     }}
-                    sx={{ width: '50%' }}
+                    sx={{ width: '50%', background: '#232323', color: '#fff', input: { color: '#fff' }, '& .MuiOutlinedInput-root': { '& fieldset': { borderColor: '#444' }, '&:hover fieldset': { borderColor: '#ffd700' }, '&.Mui-focused fieldset': { borderColor: '#ffd700' } } }}
                   />
                 </Box>
               </Box>
@@ -324,7 +324,7 @@ const Products: React.FC = () => {
 
               {/* Show active filters summary */}
               {hasActiveFilters() && (
-                <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+                <Box sx={{ mt: 2, p: 2, bgcolor: '#232323', color: '#fff', borderRadius: 1 }}>
                   <Typography variant="subtitle2" gutterBottom>
                     Active Filters:
                   </Typography>

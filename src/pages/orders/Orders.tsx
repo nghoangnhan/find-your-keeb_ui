@@ -15,6 +15,7 @@ import { Visibility } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { Order, OrderStatus } from '../../types';
 import { apiService } from '../../services/api';
+import { BACKEND_URL } from '../../services/constants';
 
 const Orders: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -171,20 +172,20 @@ const Orders: React.FC = () => {
                       <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
                         <Box
                           sx={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 1, background: '#222', mr: 1, cursor: 'pointer' }}
-                          onClick={() => window.location.href = `/products/${item.product.id}`}
+                          onClick={() => window.location.href = `/products/${item.productId}`}
                         >
                           <img
-                            src={item.product.imageUrl || 'https://via.placeholder.com/80x80?text=Keyboard'}
-                            alt={item.product.name}
+                            src={item.imageUrl ? (item.imageUrl.startsWith('/product-images/') ? BACKEND_URL + item.imageUrl : item.imageUrl) : 'https://via.placeholder.com/80x80?text=Keyboard'}
+                            alt={item.productName}
                             style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 4 }}
                           />
                         </Box>
                         <Typography
                           variant="body2"
                           sx={{ flex: 1, minWidth: 0, mr: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', cursor: 'pointer' }}
-                          onClick={() => window.location.href = `/products/${item.product.id}`}
+                          onClick={() => window.location.href = `/products/${item.productId}`}
                         >
-                          {item.product.name} x {item.quantity}
+                          {item.productName} x {item.quantity}
                         </Typography>
                         <Box sx={{ textAlign: 'right' }}>
                           <Typography variant="body2">
